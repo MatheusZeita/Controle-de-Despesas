@@ -85,6 +85,8 @@ O arquivo [src/config/database.php](src/config/database.php) aceita dois modos:
 
 As variáveis estão documentadas em `.env.example`. Em um painel de hospedagem, configure-as como variáveis de ambiente ou adapte a configuração ao mecanismo de variáveis oferecido pelo provedor. Para MySQL, utilize também [database/schema.mysql.sql](database/schema.mysql.sql).
 
+Em hospedagens compartilhadas sem variáveis de ambiente, copie `src/config/database.local.example.php` para `src/config/database.local.php`, preencha os dados do MySQL e mantenha esse arquivo fora do Git. O `.htaccess` da raiz permite publicar o projeto em hospedagens cujo document root seja `htdocs`, mantendo `public/` como área pública.
+
 ## Categorias
 
 As categorias são definidas em [src/config/expenses.php](src/config/expenses.php):

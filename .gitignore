@@ -2,3 +2,4 @@ storage/*.sqlite
 storage/*.sqlite-journal
 .env
 *.log
+src/config/database.local.php

@@ -11,14 +11,23 @@ function getDatabase(): PDO
     }
 
     $projectRoot = dirname(__DIR__, 2);
-    $driver = strtolower((string) (getenv('DB_DRIVER') ?: 'sqlite'));
+    $localConfigPath = __DIR__ . DIRECTORY_SEPARATOR . 'database.local.php';
+    $localConfig = is_file($localConfigPath) ? require $localConfigPath : [];
+    $configValue = static function (string $key, string $default = '') use ($localConfig): string {
+        $environmentValue = getenv($key);
+        return $environmentValue !== false && $environmentValue !== ''
+            ? (string) $environmentValue
+            : (string) ($localConfig[$key] ?? $default);
+    };
+
+    $driver = strtolower($configValue('DB_DRIVER', 'sqlite'));
 
     if ($driver === 'mysql') {
-        $host = (string) getenv('DB_HOST');
-        $port = (string) (getenv('DB_PORT') ?: '3306');
-        $databaseName = (string) getenv('DB_NAME');
-        $username = (string) getenv('DB_USER');
-        $password = (string) getenv('DB_PASSWORD');
+        $host = $configValue('DB_HOST');
+        $port = $configValue('DB_PORT', '3306');
+        $databaseName = $configValue('DB_NAME');
+        $username = $configValue('DB_USER');
+        $password = $configValue('DB_PASSWORD');
 
         if ($host === '' || $databaseName === '' || $username === '') {
             throw new RuntimeException('As configurações do MySQL não foram definidas.');

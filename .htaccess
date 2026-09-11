@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# O InfinityFree usa htdocs como document root. Estas regras fazem
+# public/ funcionar como a raiz pública sem expor os diretórios internos.
+RewriteRule ^(src|database|storage)(/|$) - [F,L]
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^$ public/index.php [L]
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.+)$ public/$1 [L]
