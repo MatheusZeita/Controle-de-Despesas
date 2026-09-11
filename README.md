@@ -76,6 +76,15 @@ A tabela `expenses` possui:
 
 O banco está no `.gitignore` para evitar o envio de dados pessoais ao repositório.
 
+### Configuração para produção
+
+O arquivo [src/config/database.php](src/config/database.php) aceita dois modos:
+
+- `sqlite` (padrão local);
+- `mysql` (recomendado para hospedagem compartilhada).
+
+As variáveis estão documentadas em `.env.example`. Em um painel de hospedagem, configure-as como variáveis de ambiente ou adapte a configuração ao mecanismo de variáveis oferecido pelo provedor. Para MySQL, utilize também [database/schema.mysql.sql](database/schema.mysql.sql).
+
 ## Categorias
 
 As categorias são definidas em [src/config/expenses.php](src/config/expenses.php):
